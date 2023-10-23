@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import Edit from "../img/edit.png";
+import edit from "../img/edit.png";
 import Delete from "../img/delete.png";
 import Menu from "../components/Menu";
 
@@ -23,9 +23,10 @@ const Single = () => {
           </div>
           <div className="edit">
             <Link to={`/write?edit=2`}>
-              <img src={Edit} alt="editicon" />
+            <img className="icons" src={edit} alt="deleteicon" />
+
             </Link>
-            <img src={Delete} alt="deleteicon" />
+            <img className="icons" src={Delete} alt="deleteicon" />
           </div>
         </div>
         <h1>

@@ -1,32 +1,77 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 import { db } from "../db.js";
 
 export const register = (req, res) => {
-  //CHECK EXISTING USER
-  const q = "SELECT * FROM users WHERE email = ? OR username = ?";
+  try {
+    // CHECK EXISTING USER
+    const q = "SELECT * FROM users WHERE email = ? OR username = ?";
 
-  db.query(q, [req.body.email, req.body.username], (err, data) => {
-    if (err) return res.status(500).json(err);
-    if (data.length) return res.status(409).json("User already exists!");
+    db.query(q, [req.body.email, req.body.username], (err, data) => {
+      if (err) {
+        return res.status(500).json({ error: "Database error" });
+      }
 
-    //Hash the password and create a user
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(req.body.password, salt);
+      if (data.length > 0) {
+        return res.status(409).json("User already exists!");
+      }
 
-    const q = "INSERT INTO users(`username`,`email`,`password`) VALUES (?)";
-    const values = [req.body.username, req.body.email, hash];
+      const salt = bcrypt.genSaltSync(10);
+      const hash = bcrypt.hashSync(req.body.password, salt);
 
-    db.query(q, [values], (err, data) => {
-      if (err) return res.status(500).json(err);
-      return res.status(200).json("User has been created.");
+      const insertQuery =
+        "INSERT INTO users(`username`,`email`,`password`) VALUES (?)";
+      const values = [req.body.username, req.body.email, hash];
+
+      db.query(insertQuery, [values], (err, data) => {
+        if (err) {
+          return res.status(500).json({ error: "Database error" });
+        }
+        return res.status(200).json("User has been created.");
+      });
     });
-  });
+  } catch (error) {
+    res.status(500).json({ error: "An unexpected error occurred" });
+  }
 };
 
 export const login = (req, res) => {
-  res.json({ msg: "Login" });
+  res.json({ msg: "Login success !" });
+
+  try {
+    // CHECK USER
+    const q = "SELECT * FROM users WHERE username = ? ";
+    db.query(q, [req.body.username], (err, data) => {
+      if (err) {
+        return res.status(500).json({ error: "Database error" });
+      }
+
+      if (data.length === 0) {
+        return res.status(404).json("User not found !");
+      }
+
+      const PasswordIsCorrect = bcrypt.compareSync(
+        req.body.password,
+        data[0].password
+      );
+
+      if (!PasswordIsCorrect) {
+        return res.status(400).json("Invalid username or password !");
+      }
+
+      const token = jwt.sign({ id: data[0].id }, "Arpani$agoodboy");
+
+      const { password, ...other } = data[0];
+
+      res.cookie("Access_token", token, { httpOnly: true });
+      return res.status(200).json(other);
+    });
+  } catch (error) {
+    res.status(500).json({ error: "An unexpected error occurred" });
+  }
 };
+
 export const logout = (req, res) => {
   res.json({ msg: "Logout" });
 };

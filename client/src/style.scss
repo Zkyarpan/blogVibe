@@ -53,7 +53,6 @@ body,
       cursor: pointer;
     }
 
-
     p {
       font-size: 14px;
       color: red;
@@ -215,11 +214,11 @@ body,
       }
       .edit {
         display: flex;
-        gap: 5px;
+        gap: 3px;
 
-        img {
-          width: 20px;
-          height: 20px;
+        .icons {
+          width: 44px;
+          height: 40px;
           cursor: pointer;
         }
       }
@@ -304,8 +303,8 @@ body,
         flex-direction: column;
         gap: 20px;
 
-        .item{
-          border:  1px solid lightgray;
+        .item {
+          border: 1px solid lightgray;
           padding: 10px;
           flex: 1;
           display: flex;
@@ -314,24 +313,24 @@ body,
           font-style: 12px;
           color: #555;
 
-          h1{
+          h1 {
             font-size: 20px;
           }
-          .file{
+          .file {
             text-decoration: underline;
             cursor: pointer;
           }
-          .buttons{
+          .buttons {
             display: flex;
             justify-content: space-between;
-            :first-child{
+            :first-child {
               color: teal;
               cursor: pointer;
               background-color: white;
               border: 1px solid teal;
               padding: 3px 5px;
             }
-            :last-child{
+            :last-child {
               color: white;
               cursor: pointer;
               background-color: teal;
@@ -340,13 +339,12 @@ body,
             }
           }
 
-          .cat{
+          .cat {
             display: flex;
             align-items: center;
             gap: 10px;
             color: teal;
           }
-
         }
       }
     }

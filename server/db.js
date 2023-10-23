@@ -18,11 +18,3 @@ export function connectToDb() {
     console.log("Connected to MySQL database!");
   });
 }
-
-db.query("SELECT * FROM users", (err, results) => {
-  if (err) {
-    console.error("Error executing query:", err);
-    return;
-  }
-  console.log("Query results:", results);
-});
