@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -46,7 +45,9 @@ const Login = () => {
           name="password"
           onChange={handleChange}
         />
-        <button className="button" onClick={handleSubmit}>Login</button>
+        <button className="button" onClick={handleSubmit}>
+          Login
+        </button>
         {err && <p>{err}</p>}
         <span>
           Don't you have an account? <Link to="/register">Register</Link>
