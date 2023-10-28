@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 
 import { db } from "../db.js";
 
+const secretKey = "Arpani$agoodboy";
+
 export const register = (req, res) => {
   try {
     // CHECK EXISTING USER
@@ -37,8 +39,6 @@ export const register = (req, res) => {
 };
 
 export const login = (req, res) => {
-  res.json({ msg: "Login success !" });
-
   try {
     // CHECK USER
     const q = "SELECT * FROM users WHERE username = ? ";
@@ -60,12 +60,19 @@ export const login = (req, res) => {
         return res.status(400).json("Invalid username or password !");
       }
 
-      const token = jwt.sign({ id: data[0].id }, "Arpani$agoodboy");
+      const token = jwt.sign({ id: data[0].id }, secretKey);
+      console.log("Generated Token : ", token);
 
       const { password, ...other } = data[0];
 
-      res.cookie("Access_token", token, { httpOnly: true });
-      return res.status(200).json(other);
+      res
+        .cookie("access_token", token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+        })
+        .status(200)
+        .json(other);
     });
   } catch (error) {
     res.status(500).json({ error: "An unexpected error occurred" });
@@ -73,5 +80,11 @@ export const login = (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.json({ msg: "Logout" });
+  res
+    .clearCookie("access_token", {
+      sameSite: "none",
+      secure: true,
+    })
+    .status(200)
+    .json("User has been logged out!");
 };

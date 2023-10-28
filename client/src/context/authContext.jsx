@@ -9,16 +9,26 @@ const AuthProvider = ({ children }) => {
   );
 
   const login = async (inputs) => {
-    const res = await axios.post(
-      "http://localhost:5700/api/auth/login",
-      inputs
-    );
-    setCurrentUser(res.data);
+    try {
+      const res = await axios.post(
+        "http://localhost:5700/api/auth/login",
+        inputs
+      );
+      setCurrentUser(res.data);
+    } catch (error) {
+      console.error("Login error:", error);
+      throw error;
+    }
   };
 
-  const logout = async (inputs) => {
-    await axios.post("http://localhost:5700/api/auth/logout");
-    setCurrentUser(null);
+  const logout = async () => {
+    try {
+      await axios.post("http://localhost:5700/api/auth/logout");
+      setCurrentUser(null);
+    } catch (error) {
+      console.error("Logout error:", error);
+      throw error;
+    }
   };
 
   useEffect(() => {

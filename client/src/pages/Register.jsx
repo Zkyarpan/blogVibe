@@ -19,11 +19,15 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (inputs.password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      return;
+    }
     try {
       await axios.post("http://localhost:5700/api/auth/register", inputs);
       navigate("/login");
-    } catch (err) {
-      setError(err.response.data);
+    } catch (error) {
+      setError(error.response.data);
     }
   };
 
