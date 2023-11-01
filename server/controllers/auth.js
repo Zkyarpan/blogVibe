@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 
 import { db } from "../db.js";
 
-const secretKey = "Arpani$agoodboy";
 
 export const register = (req, res) => {
   try {
@@ -60,15 +59,13 @@ export const login = (req, res) => {
         return res.status(400).json("Invalid username or password !");
       }
 
-      const token = jwt.sign({ id: data[0].id }, secretKey);
-      console.log("Generated Token : ", token);
+      const token = jwt.sign({ id: data[0].id }, "Arpani$agoodboy");
 
       const { password, ...other } = data[0];
 
       res
         .cookie("access_token", token, {
           httpOnly: true,
-          secure: true,
           sameSite: "none",
         })
         .status(200)
