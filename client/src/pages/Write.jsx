@@ -38,7 +38,8 @@ const Write = () => {
               desc: value,
               cat,
               img: file ? imgUrl : "",
-            }
+            },
+            { withCredentials: true }
           )
         : await axios.post(
             `http://localhost:5700/api/posts`,
@@ -48,7 +49,8 @@ const Write = () => {
               cat,
               img: file ? imgUrl : "",
               date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-            }
+            },
+            { withCredentials: true }
           );
     } catch (error) {
       console.log(error);
