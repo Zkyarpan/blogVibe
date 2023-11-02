@@ -11,9 +11,15 @@ import { connectToDb } from "./db.js";
 const app = express();
 const PORT = process.env.PORT || 5700;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

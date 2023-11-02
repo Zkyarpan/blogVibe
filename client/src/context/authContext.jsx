@@ -12,7 +12,10 @@ const AuthProvider = ({ children }) => {
     try {
       const res = await axios.post(
         "http://localhost:5700/api/auth/login",
-        inputs
+        inputs,
+        {
+          withCredentials: true,
+        }
       );
       setCurrentUser(res.data);
     } catch (error) {
@@ -23,7 +26,9 @@ const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post("http://localhost:5700/api/auth/logout");
+      await axios.post("http://localhost:5700/api/auth/logout", {
+        withCredentials: true,
+      });
       setCurrentUser(null);
     } catch (error) {
       console.error("Logout error:", error);

@@ -26,8 +26,8 @@ export const getPost = (req, res) => {
 };
 
 export const addPost = (req, res) => {
-  const token = req.cookies.access_token;
-  console.log("Access token", token);
+  const token = req.cookies.my_token;
+  console.log("Cookies : ", token);
 
   if (!token) return res.status(401).json("Not authenticated!");
 

@@ -31,19 +31,25 @@ const Write = () => {
     const imgUrl = upload();
     try {
       state
-        ? await axios.put(`http://localhost:5700/api/posts/${state.id}`, {
-            title,
-            desc: value,
-            cat,
-            img: file ? imgUrl : "",
-          })
-        : await axios.post(`http://localhost:5700/api/posts`, {
-            title,
-            desc: value,
-            cat,
-            img: file ? imgUrl : "",
-            date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-          });
+        ? await axios.put(
+            `http://localhost:5700/api/posts/${state.id}`,
+            {
+              title,
+              desc: value,
+              cat,
+              img: file ? imgUrl : "",
+            }
+          )
+        : await axios.post(
+            `http://localhost:5700/api/posts`,
+            {
+              title,
+              desc: value,
+              cat,
+              img: file ? imgUrl : "",
+              date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+            }
+          );
     } catch (error) {
       console.log(error);
     }

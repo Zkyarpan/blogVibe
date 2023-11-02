@@ -44,19 +44,21 @@ export const login = (req, res) => {
     const token = jwt.sign({ id: data[0].id }, "jwtkey");
     const { password, ...other } = data[0];
 
-    res.cookie("my_token", token, {
-      httpOnly: true,
+    res.set({
+      "Content-Type": "application/json",
+      "Set-Cookie": `my_token=${token}; HttpOnly; SameSite=None; Secure`,
     });
-    console.log("Cookies being set:", req.cookies);
+
     return res.status(200).json(other);
   });
 };
 
 export const logout = (req, res) => {
   res
-    .clearCookie("my_token", {
-      sameSite: "none",
-      secure: true,
+    .set({
+      "Content-Type": "application/json",
+      "Set-Cookie":
+        "my_token=; HttpOnly; SameSite=None; Secure; Expires=Thu, 01 Jan 1970 00:00:00 GMT",
     })
     .status(200)
     .json("User has been logged out.");
