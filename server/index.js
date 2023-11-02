@@ -1,18 +1,20 @@
 import express from "express";
+import cors from "cors";
+import multer from "multer";
+import cookieParser from "cookie-parser";
+
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
-import cookieParser from "cookie-parser";
-import multer from "multer";
-
 import { connectToDb } from "./db.js";
 
 const app = express();
-
 const PORT = process.env.PORT || 5700;
 
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "../client/public/upload");

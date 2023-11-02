@@ -3,85 +3,61 @@ import jwt from "jsonwebtoken";
 
 import { db } from "../db.js";
 
-
 export const register = (req, res) => {
-  try {
-    // CHECK EXISTING USER
-    const q = "SELECT * FROM users WHERE email = ? OR username = ?";
+  // Check existing user
+  const checkUserQuery = "SELECT * FROM users WHERE email = ? OR username = ?";
 
-    db.query(q, [req.body.email, req.body.username], (err, data) => {
-      if (err) {
-        return res.status(500).json({ error: "Database error" });
-      }
+  db.query(checkUserQuery, [req.body.email, req.body.username], (err, data) => {
+    if (err) return res.status(500).json(err);
+    if (data.length) return res.status(409).json("User already exists!");
 
-      if (data.length > 0) {
-        return res.status(409).json("User already exists!");
-      }
+    // Hash the password and create a user
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
 
-      const salt = bcrypt.genSaltSync(10);
-      const hash = bcrypt.hashSync(req.body.password, salt);
+    const insertUserQuery =
+      "INSERT INTO users(`username`,`email`,`password`) VALUES (?, ?, ?)";
+    const values = [req.body.username, req.body.email, hash];
 
-      const insertQuery =
-        "INSERT INTO users(`username`,`email`,`password`) VALUES (?)";
-      const values = [req.body.username, req.body.email, hash];
-
-      db.query(insertQuery, [values], (err, data) => {
-        if (err) {
-          return res.status(500).json({ error: "Database error" });
-        }
-        return res.status(200).json("User has been created.");
-      });
+    db.query(insertUserQuery, values, (err, data) => {
+      if (err) return res.status(500).json(err);
+      return res.status(201).json("User has been created.");
     });
-  } catch (error) {
-    res.status(500).json({ error: "An unexpected error occurred" });
-  }
+  });
 };
 
 export const login = (req, res) => {
-  try {
-    // CHECK USER
-    const q = "SELECT * FROM users WHERE username = ? ";
-    db.query(q, [req.body.username], (err, data) => {
-      if (err) {
-        return res.status(500).json({ error: "Database error" });
-      }
+  const checkUserQuery = "SELECT * FROM users WHERE username = ?";
 
-      if (data.length === 0) {
-        return res.status(404).json("User not found !");
-      }
+  db.query(checkUserQuery, [req.body.username], (err, data) => {
+    if (err) return res.status(500).json(err);
+    if (data.length === 0) return res.status(404).json("User not found!");
 
-      const PasswordIsCorrect = bcrypt.compareSync(
-        req.body.password,
-        data[0].password
-      );
+    const isPasswordCorrect = bcrypt.compareSync(
+      req.body.password,
+      data[0].password
+    );
 
-      if (!PasswordIsCorrect) {
-        return res.status(400).json("Invalid username or password !");
-      }
+    if (!isPasswordCorrect)
+      return res.status(400).json("Wrong username or password!");
 
-      const token = jwt.sign({ id: data[0].id }, "Arpani$agoodboy");
+    const token = jwt.sign({ id: data[0].id }, "jwtkey");
+    const { password, ...other } = data[0];
 
-      const { password, ...other } = data[0];
-
-      res
-        .cookie("access_token", token, {
-          httpOnly: true,
-          sameSite: "none",
-        })
-        .status(200)
-        .json(other);
+    res.cookie("my_token", token, {
+      httpOnly: true,
     });
-  } catch (error) {
-    res.status(500).json({ error: "An unexpected error occurred" });
-  }
+    console.log("Cookies being set:", req.cookies);
+    return res.status(200).json(other);
+  });
 };
 
 export const logout = (req, res) => {
   res
-    .clearCookie("access_token", {
+    .clearCookie("my_token", {
       sameSite: "none",
       secure: true,
     })
     .status(200)
-    .json("User has been logged out!");
+    .json("User has been logged out.");
 };

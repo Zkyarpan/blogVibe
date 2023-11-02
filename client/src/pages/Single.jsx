@@ -9,7 +9,6 @@ import Menu from "../components/Menu";
 import { AuthContext } from "./../context/authContext";
 
 const Single = () => {
-  
   const [post, setPosts] = useState({});
 
   const location = useLocation();
@@ -35,12 +34,10 @@ const Single = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5700/api/posts/${postId}`, {
-        withCredentials: true,
-      });
+      await axios.delete(`http://localhost:5700/api/posts/${postId}`);
       navigate("/");
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -56,9 +53,10 @@ const Single = () => {
           </div>
           {currentUser?.username === post.username && (
             <div className="edit">
-              <Link to={`/write?edit=2`} state={post}>
+              <Link to={`/write?edit=2`} state={{ post }}>
                 <img className="icons" src={edit} alt="deleteicon" />
               </Link>
+
               <img
                 onClick={handleDelete}
                 className="icons"
