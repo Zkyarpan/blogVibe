@@ -1,13 +1,6 @@
 import mysql2 from "mysql2";
 
-// export const db = mysql2.createConnection({
-//   host: "localhost",
-//   port: 3306,
-//   user: "root",
-//   password: "admin123",
-//   database: "blog",
-// });
-
+// For workbench
 export const db = mysql2.createConnection({
   host: "localhost",
   port: 3306,
@@ -15,6 +8,15 @@ export const db = mysql2.createConnection({
   password: "",
   database: "blog",
 });
+
+// For phpmyadmin
+// export const db = mysql2.createConnection({
+//   host: "localhost",
+//   port: 3306,
+//   user: "root",
+//   password: "",
+//   database: "blog",
+// });
 
 export function connectToDb() {
   db.connect((err) => {

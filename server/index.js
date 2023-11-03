@@ -20,7 +20,6 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "../client/public/upload");
@@ -34,6 +33,7 @@ const upload = multer({ storage });
 
 app.post("/api/upload", upload.single("file"), function (req, res) {
   const file = req.file;
+  console.log(file);
   res.status(200).json(file.filename);
 });
 

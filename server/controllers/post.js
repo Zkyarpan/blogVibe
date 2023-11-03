@@ -27,12 +27,10 @@ export const getPost = (req, res) => {
 
 export const addPost = (req, res) => {
   const token = req.cookies.my_token;
-  console.log("Cookies : ", req.cookies);
 
   if (!token) return res.status(401).json("Not authenticated!");
 
   jwt.verify(token, "jwtkey", (err, userInfo) => {
-    console.log("Userinfo token", userInfo);
     if (err) return res.status(403).json("Token is not valid!");
 
     const q =
@@ -73,7 +71,6 @@ export const deletePost = (req, res) => {
 
 export const updatePost = (req, res) => {
   const token = req.cookies.my_token;
-  console.log(req.cookies);
   if (!token) return res.status(401).json("Not authenticated!");
 
   jwt.verify(token, "jwtkey", (err, userInfo) => {

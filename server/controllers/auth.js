@@ -56,10 +56,9 @@ export const login = (req, res) => {
 
 export const logout = (req, res) => {
   res
-    .set({
-      "Content-Type": "application/json",
-      "Set-Cookie":
-        "my_token=; HttpOnly; SameSite=None; Secure; Expires=Thu, 01 Jan 1970 00:00:00 GMT",
+    .clearCookie("my_token", {
+      sameSite: "none",
+      secure: true,
     })
     .status(200)
     .json("User has been logged out.");

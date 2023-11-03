@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
@@ -11,6 +11,7 @@ const Write = () => {
   const [title, setTitle] = useState(state?.desc || "");
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState(state?.cat || "");
+  const [error, setError] = useState("");
 
   const upload = async () => {
     try {
@@ -23,37 +24,50 @@ const Write = () => {
       return res.data;
     } catch (error) {
       console.log(error);
+      setError("Error uploading image. Please try again.");
     }
   };
 
   const handleClick = async (e) => {
     e.preventDefault();
-    const imgUrl = upload();
+
+    if (!title || !value || !cat) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+
+    setError("");
+
+    const imgUrl = await upload();
+
     try {
-      state
-        ? await axios.put(
-            `http://localhost:5700/api/posts/${state.id}`,
-            {
-              title,
-              desc: value,
-              cat,
-              img: file ? imgUrl : "",
-            },
-            { withCredentials: true }
-          )
-        : await axios.post(
-            `http://localhost:5700/api/posts`,
-            {
-              title,
-              desc: value,
-              cat,
-              img: file ? imgUrl : "",
-              date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-            },
-            { withCredentials: true }
-          );
+      if (state) {
+        await axios.put(
+          `http://localhost:5700/api/posts/${state.id}`,
+          {
+            title,
+            desc: value,
+            cat,
+            img: file ? imgUrl : "",
+          },
+          { withCredentials: true }
+        );
+      } else {
+        await axios.post(
+          `http://localhost:5700/api/posts`,
+          {
+            title,
+            desc: value,
+            cat,
+            img: file ? imgUrl : "",
+            date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+          },
+          { withCredentials: true }
+        );
+      }
     } catch (error) {
       console.log(error);
+      setError("Error saving post. Please try again.");
     }
   };
 
@@ -63,7 +77,6 @@ const Write = () => {
         <input
           type="text"
           placeholder="Title"
-          value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <div className="editorContainer">
@@ -82,13 +95,13 @@ const Write = () => {
             <b>Status: </b> Draft
           </span>
           <span>
-            <b>Visibility: </b> Draft
+            <b>Visibility: </b> Public
           </span>
           <input
             style={{ display: "none" }}
             type="file"
-            name=""
             id="file"
+            name=""
             onChange={(e) => setFile(e.target.files[0])}
           />
           <label className="file" htmlFor="file">
@@ -112,7 +125,6 @@ const Write = () => {
             />
             <label htmlFor="art">Art</label>
           </div>
-
           <div className="cat">
             <input
               type="radio"
@@ -124,7 +136,6 @@ const Write = () => {
             />
             <label htmlFor="science">Science</label>
           </div>
-
           <div className="cat">
             <input
               type="radio"
@@ -136,7 +147,6 @@ const Write = () => {
             />
             <label htmlFor="technology">Technology</label>
           </div>
-
           <div className="cat">
             <input
               type="radio"
@@ -148,7 +158,6 @@ const Write = () => {
             />
             <label htmlFor="cinema">Cinema</label>
           </div>
-
           <div className="cat">
             <input
               type="radio"
@@ -160,7 +169,6 @@ const Write = () => {
             />
             <label htmlFor="design">Design</label>
           </div>
-
           <div className="cat">
             <input
               type="radio"
