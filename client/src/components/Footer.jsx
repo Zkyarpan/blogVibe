@@ -1,12 +1,15 @@
 import React from "react";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
   return (
     <footer>
-      <img src="" alt="footer" />
-      <span>
-        Made with 💗 and <b>React.js</b>.
-      </span>
+      <div className="footer-content">
+        <span>
+          <b>Blog Vibes </b>
+        </span>
+        <p> &copy; {currentYear} All rights reserved.</p>
+      </div>
     </footer>
   );
 };

@@ -55,11 +55,14 @@ export const login = (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res
-    .clearCookie("my_token", {
+  try {
+    res.clearCookie("my_token", {
       sameSite: "none",
       secure: true,
-    })
-    .status(200)
-    .json("User has been logged out.");
+    });
+    res.status(200).json("User has been logged out...");
+  } catch (error) {
+    console.error("Clearing cookie error:", error);
+    res.status(500).json("Error clearing cookie");
+  }
 };

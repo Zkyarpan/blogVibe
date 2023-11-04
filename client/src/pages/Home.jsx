@@ -25,24 +25,26 @@ const Home = () => {
   };
 
   return (
-    <div className="home">
-      <div className="posts">
-        {posts.map((post) => (
-          <div className="post" key={post.id}>
-            <div className="img">
-              <img src={`../upload/${post.img}`} alt="" />
+    <>
+      <div className="home">
+        <div className="posts">
+          {posts.map((post) => (
+            <div className="post" key={post.id}>
+              <div className="img">
+                <img src={`../upload/${post.img}`} alt="" />
+              </div>
+              <div className="content">
+                <Link className="link" to={`/post/${post.id}`}>
+                  <h2>{post.title}</h2>
+                </Link>
+                <p>{getText(post.desc)}</p>
+                {/* <button className="buttons">Read More</button> */}
+              </div>
             </div>
-            <div className="content">
-              <Link className="link" to={`/post/${post.id}`}>
-                <h1>{post.title}</h1>
-              </Link>
-              <p>{getText(post.desc)}</p>
-              <button>Read More</button>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

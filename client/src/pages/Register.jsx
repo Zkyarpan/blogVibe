@@ -1,6 +1,5 @@
-import React from "react";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 const Register = () => {
@@ -10,8 +9,26 @@ const Register = () => {
     password: "",
   });
   const [err, setError] = useState(null);
-
+  const [file, setFile] = useState(null);
   const navigate = useNavigate();
+
+  const upload = async () => {
+    try {
+      if (file) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const res = await axios.post(
+          "http://localhost:5700/api/upload",
+          formData
+        );
+        return res.data;
+      }
+      return "";
+    } catch (error) {
+      console.log(error);
+      return "";
+    }
+  };
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -23,8 +40,14 @@ const Register = () => {
       setError("Password must be at least 6 characters long");
       return;
     }
+
+    const imgUrl = await upalod();
+
     try {
-      await axios.post("http://localhost:5700/api/auth/register", inputs);
+      await axios.post("http://localhost:5700/api/auth/register", {
+        ...inputs,
+        img: imgUrl, // Use the uploaded image URL as part of user registration data
+      });
       navigate("/login");
     } catch (error) {
       setError(error.response.data);
@@ -32,37 +55,64 @@ const Register = () => {
   };
 
   return (
-    <div className="auth">
-      <h1>Register</h1>
-      <form>
+    <div className="register_auth">
+      <div className="blur" style={{ top: "-18%", right: "0" }}></div>
+      <div className="blur" style={{ top: "36%", left: "-8rem" }}></div>
+      <div className="register_slogan">
+        <span className="register_firstslogan">
+          {" "}
+          Welcome to <span className="color">Blog</span> Vibes
+        </span>
+        <br />
+        <span className="register_secondslogan">
+          "Connecting Minds, Sharing Voices"
+        </span>
+      </div>
+      <form className="form">
+        <div>
+          <h1 className="register_heading">Register</h1>
+          <span className="register_secondhead">
+            Already have an account?
+            <Link className="register_link" to="/login">
+              Login
+            </Link>
+          </span>
+        </div>
         <input
           required
           type="text"
-          placeholder="username"
+          placeholder="Username"
           name="username"
           onChange={handleChange}
         />
         <input
           required
           type="email"
-          placeholder="email"
+          placeholder="Email"
           name="email"
           onChange={handleChange}
         />
         <input
           required
           type="password"
-          placeholder="password"
+          placeholder="Password"
           name="password"
           onChange={handleChange}
         />
+        <input
+          style={{ display: "none" }}
+          type="file"
+          id="file"
+          name="img"
+          onChange={(e) => setFile(e.target.files[0])}
+        />
+        <label className="file" htmlFor="file">
+          Upload Profile
+        </label>
         <button className="button" onClick={handleSubmit}>
           Register
         </button>
-        {err && <p>{err}</p>}
-        <span>
-          Do you have an account? <Link to="/login">Login</Link>
-        </span>
+        <div className="register_error">{err && <p>{err}</p>}</div>
       </form>
     </div>
   );

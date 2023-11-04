@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 
 const Write = () => {
+  const navigate = useNavigate();
   const state = useLocation().state;
   const [value, setValue] = useState(state?.title || "");
   const [title, setTitle] = useState(state?.desc || "");
@@ -24,7 +25,6 @@ const Write = () => {
       return res.data;
     } catch (error) {
       console.log(error);
-      setError("Error uploading image. Please try again.");
     }
   };
 
@@ -65,6 +65,7 @@ const Write = () => {
           { withCredentials: true }
         );
       }
+      navigate("/");
     } catch (error) {
       console.log(error);
       setError("Error saving post. Please try again.");
@@ -108,7 +109,6 @@ const Write = () => {
             Upload Image
           </label>
           <div className="buttons">
-            <button>Save as a draft</button>
             <button onClick={handleClick}>Publish</button>
           </div>
         </div>

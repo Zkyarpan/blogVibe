@@ -29,29 +29,33 @@ const Login = () => {
   };
   return (
     <div className="auth">
-      <h1>Login</h1>
+      <div className="blur" style={{ top: "-18%", right: "0" }}></div>
+      <div className="blur" style={{ top: "36%", left: "-8rem" }}></div>
       <form>
+        <div>
+          <h1 className="heading">Log In</h1>
+          <span className="secondhead">
+            New user? <Link className="link" to={"/register"}> Create an account </Link>{" "}
+          </span>
+        </div>
         <input
           required
           type="text"
-          placeholder="username"
+          placeholder="Username"
           name="username"
           onChange={handleChange}
         />
         <input
           required
           type="password"
-          placeholder="password"
+          placeholder="Password"
           name="password"
           onChange={handleChange}
         />
         <button className="button" onClick={handleSubmit}>
           Login
         </button>
-        {err && <p>{err}</p>}
-        <span>
-          Don't you have an account? <Link to="/register">Register</Link>
-        </span>
+        <div className="error">{err && <p>{err}</p>}</div>
       </form>
     </div>
   );
