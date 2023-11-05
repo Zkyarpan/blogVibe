@@ -20,6 +20,10 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!inputs.username || !inputs.password) {
+      setError("Please fill in all fields");
+      return;
+    }
     try {
       await login(inputs);
       navigate("/");
@@ -32,10 +36,24 @@ const Login = () => {
       <div className="blur" style={{ top: "-18%", right: "0" }}></div>
       <div className="blur" style={{ top: "36%", left: "-8rem" }}></div>
       <form>
+        <div className="register_slogan">
+          <span className="register_firstslogan">
+            {" "}
+            <span className="color">Login</span> to <span>Blog</span> Vibes
+          </span>
+          <br />
+          <span className="register_secondslogan">
+            "Connecting Minds, Sharing Voices"
+          </span>
+        </div>
         <div>
           <h1 className="heading">Log In</h1>
           <span className="secondhead">
-            New user? <Link className="link" to={"/register"}> Create an account </Link>{" "}
+            New user?{" "}
+            <Link className="link" to={"/register"}>
+              {" "}
+              Create an account{" "}
+            </Link>{" "}
           </span>
         </div>
         <input

@@ -46,17 +46,16 @@ const Single = () => {
 
   return (
     <>
-      <div className="blur" style={{ top: "50%", right: "-15rem" }}></div>
       <div className="blur" style={{ top: "10%", left: "-15rem" }}></div>
       <div className="blur" style={{ top: "50rem", left: "-15rem" }}></div>
       <div className="single">
         <div className="content">
           <img src={`../upload/${post?.img}`} alt="" />
           <div className="user">
-            {post.userImg && <img src={post.userImg} alt="" />}
+            {post.userImg && <img src={`../upload/${post.userImg}`} alt="" />}
             <div className="info">
               <span>{post.username}</span>
-              <p>Posted {moment(post.date).fromNow()}</p>
+              <span className="date_time">Posted {moment(post.date).fromNow()}</span>
             </div>
             {currentUser?.username === post.username && (
               <div className="edit">

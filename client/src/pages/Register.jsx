@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Register = () => {
@@ -36,17 +36,22 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!inputs.username || !inputs.email || !inputs.password) {
+      setError("Please fill in all fields");
+      return;
+    }
+
     if (inputs.password.length < 6) {
       setError("Password must be at least 6 characters long");
       return;
     }
 
-    const imgUrl = await upalod();
+    const imgUrl = await upload();
 
     try {
       await axios.post("http://localhost:5700/api/auth/register", {
         ...inputs,
-        img: imgUrl, // Use the uploaded image URL as part of user registration data
+        img: imgUrl,
       });
       navigate("/login");
     } catch (error) {
@@ -74,6 +79,7 @@ const Register = () => {
           <span className="register_secondhead">
             Already have an account?
             <Link className="register_link" to="/login">
+              {" "}
               Login
             </Link>
           </span>

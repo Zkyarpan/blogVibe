@@ -3,6 +3,7 @@ import { useContext } from "react";
 
 import { AuthContext } from "../context/authContext";
 import Logo from "../img/Logo.png";
+import Write from "../img/write.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -23,43 +24,48 @@ const Navbar = () => {
         <div className="links">
           <Link className="link" to={"/?cat=art"}>
             <h6>ART</h6>
-          </Link>
+          </Link> |
           <Link className="link" to={"/?cat=science"}>
             <h6>SCIENCE</h6>
-          </Link>
+          </Link> | 
           <Link className="link" to={"/?cat=technology"}>
             <h6>TECHNOLOGY</h6>
-          </Link>
+          </Link> | 
           <Link className="link" to={"/?cat=cinema"}>
             <h6>CINEMA</h6>
-          </Link>
+          </Link> | 
           <Link className="link" to={"/?cat=design"}>
             <h6>DESIGN</h6>
-          </Link>
+          </Link> | 
           <Link className="link" to={"/?cat=food"}>
             <h6>FOOD</h6>
           </Link>
+        </div>
 
+        <div className="main">
           {currentUser ? (
-            <span style={{ display: "flex", gap: "5px" }}>
+            <span className="user">
               <i className="fa-solid fa-user"></i>
               {currentUser?.username}
             </span>
-          ) : null}
-
+          ) : null}{" "}
+          |
           {currentUser ? (
-            <span onClick={handleLogout}>Logout</span>
+            <span className="logout" onClick={handleLogout}>
+              Logout
+            </span>
           ) : (
-            <Link className="link" to={"/login"}>
+            <Link className="link" to="/login">
               Login
             </Link>
           )}
-          <span className="write">
-            <Link className="link" to={"/write"}>
-              Write
-            </Link>
-          </span>
         </div>
+
+        <span className="write">
+          <Link className="link" to={"/write"}>
+            <img src={Write} alt="" />
+          </Link>
+        </span>
       </div>
     </div>
   );

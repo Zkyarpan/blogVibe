@@ -26,6 +26,8 @@ const Home = () => {
 
   return (
     <>
+      <div className="blur" style={{ top: "10%", left: "-15rem" }}></div>
+      <div className="blur" style={{ top: "50rem", left: "-15rem" }}></div>
       <div className="home">
         <div className="posts">
           {posts.map((post) => (

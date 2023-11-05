@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
@@ -12,7 +12,31 @@ const Write = () => {
   const [title, setTitle] = useState(state?.desc || "");
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState(state?.cat || "");
-  const [error, setError] = useState("");
+  const [wordCount, setWordCount] = useState(0);
+  const [date, setDate] = useState(new Date());
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDate(new Date());
+    }, 60000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  const handleTextChange = (text) => {
+    setValue(text);
+    setWordCount(text.split(/\s+/).filter((item) => item).length);
+  };
+
+  const displayErrorMessage = (message) => {
+    setErrorMessage(message);
+    setTimeout(() => {
+      setErrorMessage("");
+    }, 3000);
+  };
 
   const upload = async () => {
     try {
@@ -30,13 +54,7 @@ const Write = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-
-    if (!title || !value || !cat) {
-      setError("Please fill in all required fields.");
-      return;
-    }
-
-    setError("");
+    displayErrorMessage("Please fill in all the fields.");
 
     const imgUrl = await upload();
 
@@ -68,13 +86,16 @@ const Write = () => {
       navigate("/");
     } catch (error) {
       console.log(error);
-      setError("Error saving post. Please try again.");
     }
   };
 
   return (
     <div className="add">
       <div className="content">
+        <div className={`error ${errorMessage ? "show" : ""}`}>
+          {errorMessage}
+        </div>
+
         <input
           type="text"
           placeholder="Title"
@@ -85,18 +106,25 @@ const Write = () => {
             className="editor"
             theme="snow"
             value={value}
-            onChange={setValue}
+            onChange={handleTextChange}
           />
         </div>
       </div>
       <div className="menu">
         <div className="item">
-          <h1>Publish</h1>
+          <h1 className="word">"Share your wisdom"</h1>
           <span>
-            <b>Status: </b> Draft
+            <b>Status: </b> In Progress
           </span>
           <span>
             <b>Visibility: </b> Public
+          </span>
+          <span>
+            <b>Word Count: </b> {wordCount}
+          </span>
+          <span>
+            <b>Published On: </b>
+            {date.toLocaleDateString()}
           </span>
           <input
             style={{ display: "none" }}
@@ -105,15 +133,17 @@ const Write = () => {
             name=""
             onChange={(e) => setFile(e.target.files[0])}
           />
-          <label className="file" htmlFor="file">
-            Upload Image
-          </label>
-          <div className="buttons">
-            <button onClick={handleClick}>Publish</button>
+          <div className="betweens">
+            <label className="upload_img" htmlFor="file">
+              Upload Image
+            </label>
+            <div className="buttons">
+              <button onClick={handleClick}>Publish Post</button>
+            </div>
           </div>
         </div>
         <div className="item">
-          <h1>Category</h1>
+          <h1 className="words">Category</h1>
           <div className="cat">
             <input
               type="radio"
