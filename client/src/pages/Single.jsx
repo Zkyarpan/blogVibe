@@ -11,12 +11,9 @@ import { AuthContext } from "./../context/authContext";
 
 const Single = () => {
   const [post, setPosts] = useState({});
-
   const location = useLocation();
   const navigate = useNavigate();
-
   const postId = location.pathname.split("/")[2];
-
   const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
@@ -55,11 +52,13 @@ const Single = () => {
             {post.userImg && <img src={`../upload/${post.userImg}`} alt="" />}
             <div className="info">
               <span>{post.username}</span>
-              <span className="date_time">Posted {moment(post.date).fromNow()}</span>
+              <span className="date_time">
+                Posted {moment(post.date).fromNow()}
+              </span>
             </div>
             {currentUser?.username === post.username && (
               <div className="edit">
-                <Link to={`/write?edit=2`} state={{ post }}>
+                <Link to={`/write?edit=2`} state={post}>
                   <img className="icons" src={edit} alt="deleteicon" />
                 </Link>
 

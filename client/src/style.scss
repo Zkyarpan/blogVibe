@@ -634,16 +634,19 @@ html {
 
         input {
           padding: 10px;
-          border: 1px solid #ddd;
+          border: 1px solid #b5b2b2;
           border-radius: 5px;
           font-size: 16px;
         }
+        .title {
+          background-color: white;
+        }
 
         .editorContainer {
-          height: 300px;
+          height: 350px;
           overflow: scroll;
-          border: 1px solid #ddd;
-          border-radius: 5px;
+          border: 1px solid #b5b2b2;
+          background-color: white;
 
           .editor {
             height: 100%;
@@ -664,8 +667,9 @@ html {
         gap: 20px;
 
         .item {
-          border: 1px solid #ddd;
+          border: 1px solid #b5b2b2;
           border-radius: 5px;
+          background-color: white;
           padding: 15px;
           flex: 1;
           display: flex;
@@ -703,7 +707,8 @@ html {
           }
 
           span {
-            color: #777;
+            color: black;
+            margin-top: 5px;
             font-size: 14px;
           }
 
