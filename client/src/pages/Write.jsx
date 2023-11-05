@@ -5,6 +5,8 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 
+
+
 const Write = () => {
   const navigate = useNavigate();
   const state = useLocation().state;
@@ -54,12 +56,11 @@ const Write = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    if (title === "" || value === "" || cat === "") {
+    if (title === "" || value === "" || cat === "" || file === null) {
       displayErrorMessage("Please fill in all the fields.");
       return;
     }
     const imgUrl = await upload();
-
     try {
       if (state) {
         await axios.put(

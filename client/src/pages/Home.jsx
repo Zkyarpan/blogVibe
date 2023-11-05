@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
-
   const cat = useLocation().search;
 
   useEffect(() => {
