@@ -1,13 +1,17 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet, Navigate } from "react-router-dom";
+import { useContext } from "react";
 
 import { Footer, Home, Login, Navbar, Register, Single, Write } from "./pages";
 import "./style.scss";
+import { AuthContext } from "./context/authContext";
 
 const Layout = () => {
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <>
       <Navbar />
-      <Outlet />
+      {currentUser ? <Outlet /> : <Navigate to="/login" />}
       <Footer />
     </>
   );
