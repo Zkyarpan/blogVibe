@@ -4,54 +4,65 @@ import jwt from "jsonwebtoken";
 import { db } from "../db.js";
 
 export const register = (req, res) => {
-  // Check existing user
-  const checkUserQuery = "SELECT * FROM users WHERE email = ? OR username = ?";
+  try {
+    const checkUserQuery =
+      "SELECT * FROM users WHERE email = ? OR username = ?";
+    db.query(
+      checkUserQuery,
+      [req.body.email, req.body.username],
+      (err, data) => {
+        if (err) return res.status(500).json(err);
+        if (data.length) return res.status(409).json("User already exists!");
 
-  db.query(checkUserQuery, [req.body.email, req.body.username], (err, data) => {
-    if (err) return res.status(500).json(err);
-    if (data.length) return res.status(409).json("User already exists!");
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(req.body.password, salt);
 
-    // Hash the password and create a user
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(req.body.password, salt);
+        const insertUserQuery =
+          "INSERT INTO users(`username`,`email`,`password`, `img`) VALUES (?, ?, ?, ?)";
+        const values = [req.body.username, req.body.email, hash, req.body.img];
 
-    const insertUserQuery =
-      "INSERT INTO users(`username`,`email`,`password`, `img`) VALUES (?, ?, ?, ?)";
-    const values = [req.body.username, req.body.email, hash, req.body.img];
-
-    db.query(insertUserQuery, values, (err, data) => {
-      if (err) return res.status(500).json(err);
-      return res.status(201).json("User has been created.");
-    });
-  });
+        db.query(insertUserQuery, values, (err, data) => {
+          if (err) return res.status(500).json(err);
+          return res.status(201).json("User has been created.");
+        });
+      }
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).json("Internal Server Error");
+  }
 };
 
 export const login = (req, res) => {
-  const checkUserQuery = "SELECT * FROM users WHERE username = ?";
+  try {
+    const checkUserQuery = "SELECT * FROM users WHERE username = ?";
+    db.query(checkUserQuery, [req.body.username], (err, data) => {
+      if (err) return res.status(500).json(err);
+      if (data.length === 0) return res.status(404).json("User not found!");
 
-  db.query(checkUserQuery, [req.body.username], (err, data) => {
-    if (err) return res.status(500).json(err);
-    if (data.length === 0) return res.status(404).json("User not found!");
+      const isPasswordCorrect = bcrypt.compareSync(
+        req.body.password,
+        data[0].password
+      );
 
-    const isPasswordCorrect = bcrypt.compareSync(
-      req.body.password,
-      data[0].password
-    );
+      if (!isPasswordCorrect)
+        return res.status(400).json("Wrong username or password!");
 
-    if (!isPasswordCorrect)
-      return res.status(400).json("Wrong username or password!");
+      const token = jwt.sign({ id: data[0].id }, "jwtkey");
+      const { password, ...other } = data[0];
 
-    const token = jwt.sign({ id: data[0].id }, "jwtkey");
-    const { password, ...other } = data[0];
+      res.cookie("my_token", token, {
+        httpOnly: true,
+        sameSite: "None",
+        secure: true,
+      });
 
-    res.cookie("my_token", token, {
-      httpOnly: true,
-      sameSite: "None",
-      secure: true,
+      return res.status(200).json(other);
     });
-
-    return res.status(200).json(other);
-  });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json("Internal Server Error");
+  }
 };
 
 export const logout = (req, res) => {

@@ -52,7 +52,7 @@ const Navbar = () => {
             <span className="user">
               <i className="fa-solid fa-user"></i>
               {currentUser?.username}
-            </span> 
+            </span>
           ) : null}{" "}
           {currentUser ? (
             <span className="logout" onClick={handleLogout}>
@@ -66,11 +66,11 @@ const Navbar = () => {
         </div>
 
         {currentUser && (
-          <span className="write">
-            <Link className="link" to={"/write"}>
+          <Link className="link" to={"/write"}>
+            <span className="write">
               <img src={Write} alt="" />
-            </Link>
-          </span>
+            </span>
+          </Link>
         )}
       </div>
     </div>

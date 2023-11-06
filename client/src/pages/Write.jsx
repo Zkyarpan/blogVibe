@@ -5,8 +5,6 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 
-
-
 const Write = () => {
   const navigate = useNavigate();
   const state = useLocation().state;
@@ -56,11 +54,14 @@ const Write = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    if (title === "" || value === "" || cat === "" || file === null) {
+    if (title === "" || value === "" || cat === "") {
       displayErrorMessage("Please fill in all the fields.");
       return;
     }
-    const imgUrl = await upload();
+    let imgUrl = state?.img || "";
+    if (file) {
+      imgUrl = await upload();
+    }
     try {
       if (state) {
         await axios.put(
@@ -69,7 +70,7 @@ const Write = () => {
             title,
             desc: value,
             cat,
-            img: file ? imgUrl : "",
+            img: imgUrl,
           },
           { withCredentials: true }
         );
@@ -80,7 +81,7 @@ const Write = () => {
             title,
             desc: value,
             cat,
-            img: file ? imgUrl : "",
+            img: imgUrl, // Use the new or existing image URL
             date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
           },
           { withCredentials: true }
@@ -112,7 +113,6 @@ const Write = () => {
           <div className="editorContainer">
             <ReactQuill
               className="editor"
-              placeholder="Add your description here."
               theme="snow"
               value={value}
               onChange={handleTextChange}

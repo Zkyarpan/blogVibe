@@ -1,10 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+
+import { AuthContext } from "../context/authContext";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const cat = useLocation().search;
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,10 +37,15 @@ const Home = () => {
               <div className="img">
                 <img src={`../upload/${post.img}`} alt="" />
               </div>
+
               <div className="content">
-                <Link className="link" to={`/post/${post.id}`}>
+                {currentUser ? (
+                  <Link className="link" to={`/post/${post.id}`}>
+                    <h2>{post.title}</h2>
+                  </Link>
+                ) : (
                   <h2>{post.title}</h2>
-                </Link>
+                )}
                 <p>{getText(post.desc)}</p>
                 {/* <button className="buttons">Read More</button> */}
               </div>

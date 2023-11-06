@@ -348,18 +348,12 @@ html {
 
               &:hover {
                 color: white;
-                -webkit-box-shadow: 10px 10px 99px 6px rgba(255, 165, 0, 1);
-                -moz-box-shadow: 10px 10px 99px 6px rgba(255, 165, 0, 1);
-                box-shadow: 10px 10px 99px 6px rgba(255, 165, 0, 1);
               }
             }
 
             &.logout {
               &:hover {
                 color: white;
-                -webkit-box-shadow: 10px 10px 99px 6px rgba(255, 165, 0, 1);
-                -moz-box-shadow: 10px 10px 99px 6px rgba(255, 165, 0, 1);
-                box-shadow: 10px 10px 99px 6px rgba(255, 165, 0, 1);
               }
             }
           }
@@ -367,6 +361,7 @@ html {
           .link {
             padding: 7px 10px;
             font-weight: 500;
+            letter-spacing: 1px;
           }
         }
 
@@ -399,7 +394,7 @@ html {
 
     // Footer
     footer {
-      margin-top: 120px;
+      margin-top: 300px;
       padding: 20px;
       display: flex;
       gap: 20px;
@@ -453,6 +448,14 @@ html {
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            p {
+              word-wrap: break-word;
+              text-align: justify;
+              line-height: 1.5;
+            }
 
             h2 {
               font-size: 24px;
@@ -585,42 +588,86 @@ html {
         line-height: 30px;
       }
 
-      .menu {
-        flex: 2;
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
+      // .menu {
+      //   flex: 2;
+      //   display: flex;
+      //   flex-direction: column;
+      //   gap: 25px;
 
+      //   h1 {
+      //     font-size: 20px;
+      //     color: #666;
+      //   }
+      //   .post {
+      //     display: flex;
+      //     flex-direction: column;
+      //     gap: 10px;
+
+      //     img {
+      //       width: 100%;
+      //       height: 200px;
+      //       border-radius: 2rem;
+      //       object-fit: cover;
+      //     }
+      //     .button {
+      //       width: max-content;
+      //       border: none;
+      //       cursor: pointer;
+      //       background-color: white;
+      //       border: 1px solid $lightGreen;
+      //       color: teal;
+      //       &:hover {
+      //         border: 1px solid white;
+      //         color: black;
+      //         background-color: $lightGreen;
+      //       }
+      //     }
+      //   }
+      // }
+
+      .menu {
+        width: 100%;
+        max-width: 300px; 
+        padding: 20px;
+        box-sizing: border-box;
         h1 {
-          font-size: 20px;
-          color: #666;
+          font-size: 19px;
+          font-weight: 500;
         }
         .post {
           display: flex;
           flex-direction: column;
-          gap: 10px;
-
-          img {
+          align-items: start;
+          margin-bottom: 20px;
+          .post-image {
             width: 100%;
-            height: 200px;
-            border-radius: 2rem;
+            border-radius: 10px;
+            height: auto;
             object-fit: cover;
           }
-          .button {
-            width: max-content;
+          .post-title {
+            font-size: 17px;
+            margin: 10px 0;
+            font-weight: 500;
+          }
+          .post-desc {
+            font-size: 17px;
+            margin-top: -5px;
+          }
+          .read-more-button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
             border: none;
             cursor: pointer;
-            background-color: white;
-            border: 1px solid $lightGreen;
-            color: teal;
+            transition: background-color 0.3s ease;
             &:hover {
-              border: 1px solid white;
-              color: black;
-              background-color: $lightGreen;
+              background-color: #0056b3; 
             }
           }
         }
       }
+      
     }
 
     //  Write
