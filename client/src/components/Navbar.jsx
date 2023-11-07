@@ -1,5 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
+import { RiUserFill } from "react-icons/ri";
+import { FaSignOutAlt } from "react-icons/fa";
 
 import { AuthContext } from "../context/authContext";
 import Logo from "../img/Logo.png";
@@ -46,16 +48,16 @@ const Navbar = () => {
             <h6>FOOD</h6>
           </Link>
         </div>
-
-        <div className="main">
+        {currentUser ? (
+          <span className="user">
+            <RiUserFill />
+            {currentUser?.username}
+          </span>
+        ) : null}{" "}
+        <div className="logout">
           {currentUser ? (
-            <span className="user">
-              <i className="fa-solid fa-user"></i>
-              {currentUser?.username}
-            </span>
-          ) : null}{" "}
-          {currentUser ? (
-            <span className="logout" onClick={handleLogout}>
+            <span onClick={handleLogout}>
+              <FaSignOutAlt className="logout_icon" />
               Logout
             </span>
           ) : (
@@ -64,7 +66,6 @@ const Navbar = () => {
             </Link>
           )}
         </div>
-
         {currentUser && (
           <Link className="link" to={"/write"}>
             <span className="write">

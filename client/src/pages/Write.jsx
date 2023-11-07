@@ -81,7 +81,7 @@ const Write = () => {
             title,
             desc: value,
             cat,
-            img: imgUrl, // Use the new or existing image URL
+            img: imgUrl,
             date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
           },
           { withCredentials: true }
@@ -190,7 +190,6 @@ const Write = () => {
             </div>
           </div>
           <div className="item">
-            <h1 className="word">"Share your wisdom"</h1>
             <span>
               <b>Status: </b> In Progress
             </span>
