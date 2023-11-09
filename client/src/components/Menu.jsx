@@ -16,7 +16,7 @@ const Menu = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(`http://localhost:5700/api/posts/`);
-        setPosts(res.data);
+        setPosts(res.data.slice(0, 4));
       } catch (error) {
         console.log(error);
       }
@@ -25,7 +25,7 @@ const Menu = () => {
   }, []);
 
   const getRandomReadTime = () => {
-    return Math.floor(Math.random() * (20 - 5 + 1)) + 5; 
+    return Math.floor(Math.random() * (20 - 5 + 1)) + 5;
   };
 
   return (

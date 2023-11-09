@@ -47,7 +47,6 @@ const Home = () => {
                   <h2>{post.title}</h2>
                 )}
                 <p>{getText(post.desc)}</p>
-                {/* <button className="buttons">Read More</button> */}
               </div>
             </div>
           ))}

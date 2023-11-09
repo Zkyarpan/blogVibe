@@ -324,12 +324,10 @@ html {
         .user {
           display: flex;
           align-items: center;
-          // background: #333;
           box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
             0 2px 4px -1px rgba(0, 0, 0, 0.06);
           padding: 8px;
-          border: 1px solid black;
-          // color: white;
+          border: 1px solid rgb(145, 144, 144);
           gap: 5px;
           letter-spacing: 0.5px;
           font-size: 15px;
@@ -402,7 +400,6 @@ html {
 
     // Footer
     footer {
-      margin-top: 300px;
       padding: 20px;
       display: flex;
       gap: 20px;
@@ -418,6 +415,7 @@ html {
       }
       .footer-content {
         display: flex;
+        gap: 10px;
         justify-content: space-between;
         flex-direction: row;
         align-items: center;
@@ -434,7 +432,7 @@ html {
         margin-top: 50px;
         display: flex;
         flex-direction: column;
-        gap: 120px;
+        gap: 50px;
 
         .post {
           display: flex;
@@ -480,7 +478,10 @@ html {
             }
             p::first-letter {
               font-size: 24px;
-              font-weight: bold;
+              font-weight: 400;
+              letter-spacing: 1px;
+              // font-weight: bold;
+
             }
 
             .buttons {

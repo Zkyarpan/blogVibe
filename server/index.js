@@ -4,7 +4,6 @@ import multer from "multer";
 import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/auth.js";
-// import uploadRoutes from "./routes/uploadRoutes.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
 import { connectToDb } from "./db.js";
