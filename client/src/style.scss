@@ -324,17 +324,16 @@ html {
         .user {
           display: flex;
           align-items: center;
-          background: linear-gradient(98.63deg, #f95f35 100%, #f9a225 0%);
+          // background: #333;
           box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
             0 2px 4px -1px rgba(0, 0, 0, 0.06);
           padding: 8px;
-          transition: background-color 0.3s ease-in-out;
-          border: 1px solid #dc2f02;
-          color: white;
+          border: 1px solid black;
+          // color: white;
           gap: 5px;
           letter-spacing: 0.5px;
           font-size: 15px;
-          padding: 10px 10px;
+          padding: 10px 13px;
           border-radius: 1rem;
           font-weight: 700;
         }
@@ -347,7 +346,7 @@ html {
           box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
             0 2px 4px -1px rgba(0, 0, 0, 0.06);
           padding: 8px;
-          border: 1px solid #dc2f02;
+          border: 1px solid orange;
           color: white;
           letter-spacing: 0.5px;
           cursor: pointer;
@@ -653,7 +652,7 @@ html {
             gap: 40px;
             justify-content: space-between;
 
-            span{
+            span {
               color: #333;
               font-weight: 500;
               font-size: 14px;

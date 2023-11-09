@@ -48,12 +48,13 @@ const Navbar = () => {
             <h6>FOOD</h6>
           </Link>
         </div>
-        {currentUser ? (
+        {/* {currentUser ? (
           <span className="user">
             <RiUserFill />
             {currentUser?.username}
           </span>
-        ) : null}{" "}
+        ) : null}{" "} */}
+        
         <div className="logout">
           {currentUser ? (
             <span onClick={handleLogout}>
