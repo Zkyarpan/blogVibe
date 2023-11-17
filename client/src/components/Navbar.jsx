@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { RiUserFill } from "react-icons/ri";
 import { FaSignOutAlt } from "react-icons/fa";
 
@@ -9,7 +9,16 @@ import Write from "../img/write.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const { currentUser, logout } = useContext(AuthContext);
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+  };
+
+  const handleHomeClick = () => {
+    setSelectedCategory(null);
+  };
 
   const handleLogout = () => {
     logout();
@@ -19,56 +28,90 @@ const Navbar = () => {
     <div className="navbar">
       <div className="container">
         <div className="logo">
-          <Link to={"/"}>
+          <Link to={"/"} onClick={handleHomeClick}>
             <img src={Logo} alt="Logo" />
           </Link>
         </div>
         <div className="links">
-          <Link className="link" to={"/?cat=art"}>
+          <Link
+            className={`link ${selectedCategory === "art" ? "selected" : ""}`}
+            to={"/?cat=art"}
+            onClick={() => handleCategoryClick("art")}
+          >
             <h6>ART</h6>
           </Link>{" "}
           |
-          <Link className="link" to={"/?cat=science"}>
+          <Link
+            className={`link ${
+              selectedCategory === "science" ? "selected" : ""
+            }`}
+            to={"/?cat=science"}
+            onClick={() => handleCategoryClick("science")}
+          >
             <h6>SCIENCE</h6>
           </Link>{" "}
           |
-          <Link className="link" to={"/?cat=technology"}>
+          <Link
+            className={`link ${
+              selectedCategory === "technology" ? "selected" : ""
+            }`}
+            to={"/?cat=technology"}
+            onClick={() => handleCategoryClick("technology")}
+          >
             <h6>TECHNOLOGY</h6>
           </Link>{" "}
           |
-          <Link className="link" to={"/?cat=cinema"}>
+          <Link
+            className={`link ${
+              selectedCategory === "cinema" ? "selected" : ""
+            }`}
+            to={"/?cat=cinema"}
+            onClick={() => handleCategoryClick("cinema")}
+          >
             <h6>CINEMA</h6>
           </Link>{" "}
           |
-          <Link className="link" to={"/?cat=design"}>
+          <Link
+            className={`link ${
+              selectedCategory === "design" ? "selected" : ""
+            }`}
+            to={"/?cat=design"}
+            onClick={() => handleCategoryClick("design")}
+          >
             <h6>DESIGN</h6>
           </Link>{" "}
           |
-          <Link className="link" to={"/?cat=food"}>
+          <Link
+            className={`link ${selectedCategory === "food" ? "selected" : ""}`}
+            to={"/?cat=food"}
+            onClick={() => handleCategoryClick("food")}
+          >
             <h6>FOOD</h6>
           </Link>
         </div>
-        {currentUser ? (
-          <span className="user">
-            <RiUserFill />
-            {currentUser?.username}
-          </span>
-        ) : null}{" "}
-        <div className="logout">
+        <div className="main">
           {currentUser ? (
-            <span onClick={handleLogout}>
-              <FaSignOutAlt className="logout_icon" />
-              Logout
+            <span className="user">
+              <RiUserFill />
+              {currentUser?.username}
             </span>
-          ) : (
-            <Link className="link" to="/login">
-              Login
-            </Link>
-          )}
+          ) : null}{" "}
+          <div className="logout">
+            {currentUser ? (
+              <span onClick={handleLogout}>
+                <FaSignOutAlt className="logout_icon" />
+                Logout
+              </span>
+            ) : (
+              <Link className="link" to="/login">
+                Login
+              </Link>
+            )}
+          </div>
         </div>
         {currentUser && (
           <Link className="link" to={"/write"}>
-            <span className="write">
+            <span className="write" onClick={handleHomeClick}>
               <img src={Write} alt="" />
             </span>
           </Link>

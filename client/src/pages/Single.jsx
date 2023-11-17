@@ -49,20 +49,25 @@ const Single = () => {
         <div className="single">
           <div className="content">
             <img src={`../upload/${post?.img}`} alt="" />
+
             <div className="user">
-              {post.userImg && <img src={`../upload/${post.userImg}`} alt="" />}
-              <div className="info">
-                <span>{post.username}</span>
-                <span className="date_time">
-                  Posted {moment(post.date).fromNow()}
-                </span>
+              <div className="user-info">
+                {post.userImg && (
+                  <img src={`../upload/${post.userImg}`} alt="" />
+                )}
+                <div className="info">
+                  <span>{post.username}</span>
+                  <span className="date_time">
+                    <i className="fa-regular fa-clock"></i>
+                    Posted {moment(post.date).fromNow()}
+                  </span>
+                </div>
               </div>
               {currentUser?.username === post.username && (
                 <div className="edit">
                   <Link to={`/write?edit=2`} state={post}>
                     <img className="icons" src={edit} alt="deleteicon" />
                   </Link>
-
                   <img
                     onClick={handleDelete}
                     className="icons"
@@ -72,8 +77,10 @@ const Single = () => {
                 </div>
               )}
             </div>
+
             <div className="title_desc_sec">
               <h1>{post.title}</h1>
+              <hr />
               <p
                 dangerouslySetInnerHTML={{
                   __html: DOMPurify.sanitize(post.desc),

@@ -16,17 +16,13 @@ const Menu = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(`http://localhost:5700/api/posts/`);
-        setPosts(res.data.slice(0, 4));
+        setPosts(res.data.slice(3, 6));
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
   }, []);
-
-  const getRandomReadTime = () => {
-    return Math.floor(Math.random() * (20 - 5 + 1)) + 5;
-  };
 
   return (
     <>
@@ -39,9 +35,10 @@ const Menu = () => {
                 className="post-image"
                 src={`../upload/${post?.img}`}
                 alt=""
+                cls
               />
-              <p className="post-title">{post.title}</p>
             </Link>
+            <p className="post-title">{post.title}</p>
             <div className="between">
               {likedPosts[post.id] ? (
                 <AiFillHeart onClick={() => handleLikeClick(post.id)} />
@@ -49,7 +46,8 @@ const Menu = () => {
                 <AiOutlineHeart onClick={() => handleLikeClick(post.id)} />
               )}
               <PiShareFatFill />
-              <span>Read Time: {getRandomReadTime()} min</span>
+
+              <span className="read_article_btn">Read this article</span>
             </div>
           </div>
         ))}

@@ -146,10 +146,13 @@ html {
     .error {
       text-align: center;
       font-weight: 400;
-      margin-top: -25px;
+      margin-top: -33px;
       p {
         font-size: large;
-        color: #e63946;
+        background-color: #9b2226;
+        border-radius: 10px;
+        padding: 3px;
+        color: white;
       }
     }
 
@@ -229,18 +232,54 @@ html {
       text-rendering: optimizeLegibility;
       border-radius: 2rem;
     }
+
     .file {
-      margin-left: 6px;
-      background-color: #1a73e8;
+      position: relative;
+      padding: 5px;
+      display: flex;
+      display: inline-block;
+      cursor: pointer;
+      border: 1px solid #e0e1dd;
+      border-radius: 5px;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      padding: 10px;
-      color: white;
-      width: 90%;
-      background: #ff7900;
-      border-radius: 2rem;
+      text-align: center;
+
+      .defaultusericon {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+        margin-bottom: -15px;
+      }
+
+      .add-avatar-section {
+        font-weight: 500;
+        display: inline-block;
+        vertical-align: middle;
+
+        span {
+          display: block;
+          font-size: 12px;
+          font-weight: 500;
+          color: #888;
+        }
+      }
+
+      .uploadicon {
+        border: 1px solid #888;
+        padding: 3px;
+        margin-bottom: -10px;
+        border-radius: 10px;
+        padding: 5px;
+        width: 20px;
+        height: 20px;
+        margin-left: 10px;
+      }
+      &:hover {
+        background-color: #f8f9fa;
+      }
     }
+
     .button {
       font-family: inherit;
       font-size: 1rem;
@@ -270,10 +309,13 @@ html {
     .register_error {
       text-align: center;
       font-weight: 400;
-      margin-top: -25px;
+      margin-top: -33px;
       p {
         font-size: large;
-        color: #e63946;
+        background-color: #9b2226;
+        border-radius: 10px;
+        padding: 3px;
+        color: white;
       }
     }
 
@@ -286,7 +328,7 @@ html {
         justify-content: space-between;
         .logo {
           img {
-            width: 140px;
+            width: 130px;
             margin-top: 5px;
           }
         }
@@ -300,12 +342,17 @@ html {
           box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
             0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
-          a {
+          .link {
+            color: #333;
             text-decoration: none;
-            color: black;
 
             &:hover {
-              color: #616060;
+              text-decoration: underline;
+            }
+
+            &.selected {
+              color: #fb5607;
+              font-weight: bold;
             }
           }
 
@@ -313,27 +360,27 @@ html {
             font-size: 15px;
             letter-spacing: 1px;
           }
-
-          span {
-            cursor: pointer;
-            letter-spacing: 0.5px;
-            font-weight: 600;
-          }
         }
-
-        .user {
+        .main {
           display: flex;
-          align-items: center;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-            0 2px 4px -1px rgba(0, 0, 0, 0.06);
-          padding: 8px;
-          border: 1px solid rgb(145, 144, 144);
           gap: 5px;
-          letter-spacing: 0.5px;
-          font-size: 15px;
-          padding: 10px 13px;
-          border-radius: 1rem;
-          font-weight: 700;
+          border: 1px solid #888;
+          border-radius: 2rem;
+          background-color: white ;
+          height: 35px;
+          padding: 10px;
+          .user {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border: 1px solid #b9b9b9;
+            gap: 5px;
+            letter-spacing: 0.5px;
+            font-size: 15px;
+            padding: 10px 13px;
+            border-radius: 1rem;
+            font-weight: 700;
+          }
         }
 
         .logout {
@@ -343,13 +390,12 @@ html {
           background: linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%);
           box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
             0 2px 4px -1px rgba(0, 0, 0, 0.06);
-          padding: 8px;
-          border: 1px solid orange;
           color: white;
           letter-spacing: 0.5px;
           cursor: pointer;
           font-size: 15px;
           padding: 10px 10px;
+          border: 1px solid #e85d04;
           border-radius: 1rem;
           font-weight: 700;
           transition: all 0.3s ease;
@@ -373,22 +419,23 @@ html {
 
         .write {
           padding: 10px;
-          width: 50px;
-          height: 50px;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
           cursor: pointer;
+          background: linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%);
           display: flex;
           align-items: center;
+          border: 1px solid white;
           justify-content: center;
-          border: 1px solid #e36414;
           font-weight: 400;
           transition: background 0.5s, border 0.3s;
           box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
             0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
           &:hover {
-            background: linear-gradient(98.63deg, #f9a225 0%, #f95f35 100%);
-            border: 1px solid white;
+            background: white;
+            border: 1px solid #e85d04;
           }
 
           img {
@@ -401,6 +448,7 @@ html {
     // Footer
     footer {
       padding: 20px;
+      margin-top: 50px;
       display: flex;
       gap: 20px;
       flex-direction: column;
@@ -480,8 +528,6 @@ html {
               font-size: 24px;
               font-weight: 400;
               letter-spacing: 1px;
-              // font-weight: bold;
-
             }
 
             .buttons {
@@ -530,54 +576,71 @@ html {
 
       .user {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        gap: 10px;
+        background-color: white;
+        padding: 4px;
+        border-radius: 10px;
 
-        img {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          object-fit: cover;
-        }
-
-        .info {
+        .user-info {
           display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 2px;
+          align-items: center;
+          gap: 10px;
 
-          span {
-            font-weight: bold;
-            font-size: 17px;
-            margin-bottom: 0;
+          img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
           }
-          .date_time {
-            font-size: 13px;
-            color: #333;
-            font-weight: 500;
+
+          .info {
+            display: flex;
+            flex-direction: column;
+            span {
+              font-weight: bold;
+              font-size: 17px;
+              margin-bottom: 0;
+            }
+            .date_time {
+              display: flex;
+              font-size: 12px;
+              color: #555454;
+              gap: 5px;
+
+              i {
+                font-size: 14px;
+                margin-top: 2px;
+                color: #555454;
+              }
+            }
           }
         }
 
         .edit {
           display: flex;
-          align-items: center;
-          justify-content: center;
-        }
+          gap: 7px;
 
-        .icons {
-          width: 44px;
-          cursor: pointer;
-          height: 40px;
-          transition: transform 0.1s ease-in-out;
-        }
+          .icons {
+            width: 44px;
+            cursor: pointer;
+            height: 40px;
+            transition: transform 0.1s ease-in-out;
+          }
 
-        .icons:hover {
-          transform: scale(1.2);
+          .icons:hover {
+            transform: scale(1.2);
+          }
         }
       }
 
       .title_desc_sec {
         margin-top: -20px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: white;
+        max-height: 400px;
+        overflow-y: auto;
         h1 {
           font-size: 24px;
           color: #333;
@@ -609,10 +672,12 @@ html {
         padding: 20px;
         margin-top: -40px;
         box-sizing: border-box;
+
         h1 {
           font-size: 19px;
           font-weight: 500;
         }
+
         .link-no-underline {
           text-decoration: none;
           color: inherit;
@@ -626,7 +691,6 @@ html {
           border: 1px solid #a5a2a2;
           padding: 10px;
           background-color: white;
-          cursor: pointer;
           border-radius: 1rem;
           transition: transform 0.3s;
 
@@ -642,9 +706,10 @@ html {
           }
 
           .post-title {
-            font-size: 17px;
-            margin: 10px 0;
-            font-weight: 500;
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 1.2;
+            overflow: hidden;
           }
 
           .between {
@@ -663,6 +728,22 @@ html {
           .post-desc {
             font-size: 17px;
             margin-top: -5px;
+          }
+
+          .read_article_btn {
+            border: 1px solid #a5a2a2;
+            padding: 5px;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: #a5a2a2;
+              color: white;
+            }
+          }
+          &:hover {
+            border: 1px solid black;
           }
         }
       }
@@ -754,14 +835,18 @@ html {
           }
 
           .upload_img {
-            background: #ff7900;
+            background: #f48c06;
             font-weight: 600;
             font-size: 15px;
             padding: 10px;
             border-radius: 5px;
             align-self: flex-end;
             color: white;
+            transition: all 0.3s ease;
             letter-spacing: 1px;
+            &:hover {
+              background: #e85d04;
+            }
           }
 
           h1 {
@@ -795,7 +880,8 @@ html {
             align-self: flex-end;
 
             button {
-              background: #ff7900;
+              background: #f48c06;
+              width: 7rem;
               padding: 10px;
               border: none;
               color: white;
@@ -806,6 +892,10 @@ html {
               font-weight: 600;
               cursor: pointer;
               transition: all 0.3s ease;
+
+              &:hover {
+                background: #e85d04;
+              }
             }
           }
 

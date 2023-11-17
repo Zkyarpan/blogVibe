@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
+import { FaSpinner } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 
@@ -14,6 +15,7 @@ const Write = () => {
   const [cat, setCat] = useState(state?.cat || "");
   const [wordCount, setWordCount] = useState(0);
   const [date, setDate] = useState(new Date());
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
@@ -63,6 +65,7 @@ const Write = () => {
       imgUrl = await upload();
     }
     try {
+      setLoading(true);
       if (state) {
         await axios.put(
           `http://localhost:5700/api/posts/${state.id}`,
@@ -91,6 +94,8 @@ const Write = () => {
       navigate("/");
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -215,7 +220,9 @@ const Write = () => {
                 Upload Image
               </label>
               <div className="buttons">
-                <button onClick={handleClick}>Publish Post</button>
+                <button type="submit" disabled={loading} onClick={handleClick}>
+                  {loading ? "Publishing.." : "Publish"}
+                </button>
               </div>
             </div>
           </div>

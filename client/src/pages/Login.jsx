@@ -31,6 +31,10 @@ const Login = () => {
       setError(err.response.data);
     }
   };
+
+  setTimeout(() => {
+    setError(false);
+  }, 5000);
   return (
     <div className="auth">
       <div className="blur" style={{ top: "-18%", right: "0" }}></div>

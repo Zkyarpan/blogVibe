@@ -23,7 +23,14 @@ const Home = () => {
 
   const getText = (html) => {
     const doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.textContent;
+    let text = doc.body.textContent;
+    let words = text.split(" ");
+    if (words.length > 120) {
+      words = words.slice(0, 120);
+      text = words.join(" ") + "...";
+    }
+
+    return text;
   };
 
   return (
