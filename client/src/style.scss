@@ -492,10 +492,9 @@ html {
     }
 
     // Home
-
     .home {
       .posts {
-        margin-top: 50px;
+        margin-top: 20px;
         display: flex;
         flex-direction: column;
         gap: 50px;
@@ -564,7 +563,8 @@ html {
               transition: box-shadow 0.3s;
 
               &:hover {
-                box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+                  0 6px 20px 0 rgba(0, 0, 0, 0.19);
               }
             }
             .buttons {
@@ -691,7 +691,7 @@ html {
           letter-spacing: 0.5px;
         }
       }
-     
+
       .go_back_btn {
         width: 20%;
         cursor: pointer;
@@ -706,7 +706,8 @@ html {
         transition: box-shadow 0.3s;
 
         &:hover {
-          box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+            0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
       }
 
@@ -743,19 +744,19 @@ html {
           align-items: flex-start;
           margin-bottom: 20px;
           border: 1px solid #ccc;
-          padding: 10px;
           background-color: white;
           border-radius: 1rem;
 
           .post-image {
-            width: 100%;
-            border-radius: 10px;
+            max-width: 100%;
             height: auto;
             object-fit: cover;
           }
 
           .post-title {
-            font-size: 13px;
+            font-size: 14px;
+            padding: 3px;
+            margin-left: 5px;
             font-weight: bold;
             line-height: 1.2;
             overflow: hidden;
@@ -764,13 +765,15 @@ html {
           .between {
             display: flex;
             align-items: center;
-            gap: 40px;
+            font-size: 20px;
+            cursor: pointer;
+            gap: 10px;
+            padding: 10px;
             justify-content: space-between;
 
-            span {
-              color: #333;
-              font-weight: 500;
-              font-size: 14px;
+            i {
+              font-size: 17px;
+              margin-left: 9rem;
             }
           }
 
@@ -792,7 +795,7 @@ html {
             }
           }
           &:hover {
-            border: 1px solid black;
+            border: 1px solid #888;
           }
         }
       }

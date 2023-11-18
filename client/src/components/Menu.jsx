@@ -40,6 +40,7 @@ const Menu = () => {
         {posts.map((post) => (
           <div className="post" key={post.id}>
             <Link className="link-no-underline" to={`/post/${post.id}`}>
+              <p className="post-title">{"⚫ " + post.title}</p>
               <img
                 className="post-image"
                 src={`../upload/${post?.img}`}
@@ -47,7 +48,7 @@ const Menu = () => {
                 cls
               />
             </Link>
-            <p className="post-title">{post.title}</p>
+
             <div className="between">
               {likedPosts[post.id] ? (
                 <AiFillHeart onClick={() => handleLikeClick(post.id)} />
@@ -55,8 +56,7 @@ const Menu = () => {
                 <AiOutlineHeart onClick={() => handleLikeClick(post.id)} />
               )}
               <PiShareFatFill />
-
-              <span className="read_article_btn">Read this article</span>
+              <i className="fa-solid fa-message"></i>
             </div>
           </div>
         ))}

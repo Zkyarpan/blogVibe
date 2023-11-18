@@ -9,6 +9,7 @@ const Register = () => {
     password: "",
   });
   const [err, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
 
@@ -49,6 +50,7 @@ const Register = () => {
     const imgUrl = await upload();
 
     try {
+      setLoading(true);
       await axios.post("http://localhost:5700/api/auth/register", {
         ...inputs,
         img: imgUrl,
@@ -57,6 +59,8 @@ const Register = () => {
       navigate("/login");
     } catch (error) {
       setError(error.response.data);
+    } finally {
+      setLoading(false);
     }
   };
   setTimeout(() => {
@@ -117,13 +121,13 @@ const Register = () => {
             name="img"
             onChange={(e) => setFile(e.target.files[0])}
           />
-          <label class="file" for="file">
+          <label className="file" htmlFor="file">
             <img
               className="defaultusericon"
               src="./defaultuser.png"
               alt="default user icon"
             />
-            <div class="add-avatar-section">
+            <div className="add-avatar-section">
               Add your avatar
               <span>PNG or JPG</span>
             </div>
@@ -131,7 +135,7 @@ const Register = () => {
           </label>
 
           <button className="button" onClick={handleSubmit}>
-            Register
+            {loading ? "Registering" : "Register"}
           </button>
           <div className="register_error">{err && <p>{err}</p>}</div>
         </form>
