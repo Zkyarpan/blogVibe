@@ -10,6 +10,7 @@ import Menu from "../components/Menu";
 import { AuthContext } from "../context/authContext";
 
 const Single = () => {
+  const [loading, setLoading] = useState(true);
   const [post, setPosts] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
@@ -19,12 +20,15 @@ const Single = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const res = await axios.get(
           `http://localhost:5700/api/posts/${postId}`
         );
         setPosts(res.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
@@ -32,17 +36,25 @@ const Single = () => {
 
   const handleDelete = async () => {
     try {
+      setLoading(true);
       await axios.delete(`http://localhost:5700/api/posts/${postId}`, {
         withCredentials: true,
       });
       navigate("/");
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
+      {loading && (
+        <div className="loading-overlay">
+          <p>Loading...</p>
+        </div>
+      )}
       <div className="blur" style={{ top: "10%", left: "-15rem" }}></div>
       <div className="blur" style={{ top: "50rem", left: "-15rem" }}></div>
       {currentUser && (
@@ -87,6 +99,9 @@ const Single = () => {
                 }}
               ></p>
             </div>
+            <Link to={"/"}>
+              <button className="go_back_btn">Go back</button>
+            </Link>
           </div>
           <Menu />
         </div>

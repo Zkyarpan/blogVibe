@@ -5,6 +5,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { PiShareFatFill } from "react-icons/pi";
 
 const Menu = () => {
+  const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [likedPosts, setLikedPosts] = useState({});
 
@@ -15,10 +16,13 @@ const Menu = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const res = await axios.get(`http://localhost:5700/api/posts/`);
         setPosts(res.data.slice(3, 6));
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
@@ -26,6 +30,11 @@ const Menu = () => {
 
   return (
     <>
+      {loading && (
+        <div className="loading-overlay">
+          <p>Loading...</p>
+        </div>
+      )}
       <div className="menu">
         <h1>Others posts you may like</h1>
         {posts.map((post) => (

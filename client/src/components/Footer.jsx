@@ -5,10 +5,14 @@ const Footer = () => {
   return (
     <footer>
       <div className="footer-content">
-        <span>
-          <b>Blog Vibes </b>
-        </span>
-        <p> &copy; {currentYear} All rights reserved.</p>
+        <p>
+          {" "}
+          &copy; {currentYear}{" "}
+          <span>
+            <b>Blog Vibes.</b>
+          </span>{" "}
+          All rights reserved.
+        </p>
       </div>
     </footer>
   );

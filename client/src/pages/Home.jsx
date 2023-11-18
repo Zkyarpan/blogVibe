@@ -1,23 +1,27 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-
 import { AuthContext } from "../context/authContext";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const cat = useLocation().search;
   const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const res = await axios.get(`http://localhost:5700/api/posts${cat}`);
         setPosts(res.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
+
     fetchData();
   }, [cat]);
 
@@ -35,6 +39,11 @@ const Home = () => {
 
   return (
     <>
+      {loading && (
+        <div className="loading-overlay">
+          <p>Loading...</p>
+        </div>
+      )}
       <div className="blur" style={{ top: "10%", left: "-15rem" }}></div>
       <div className="blur" style={{ top: "50rem", left: "-15rem" }}></div>
       <div className="home">
@@ -47,13 +56,19 @@ const Home = () => {
 
               <div className="content">
                 {currentUser ? (
-                  <Link className="link" to={`/post/${post.id}`}>
+                  <div>
                     <h2>{post.title}</h2>
-                  </Link>
+                    <hr />
+                  </div>
                 ) : (
                   <h2>{post.title}</h2>
                 )}
                 <p>{getText(post.desc)}</p>
+                <Link className="link" to={`/post/${post.id}`}>
+                  <button className="read_article_btn">
+                    Read this article
+                  </button>
+                </Link>
               </div>
             </div>
           ))}
