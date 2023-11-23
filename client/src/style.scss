@@ -98,7 +98,7 @@ html {
     form {
       display: flex;
       flex-direction: column;
-      height: 270px;
+      height: 320px;
       padding: 50px;
       background-color: white;
       border-radius: 10px;
@@ -163,13 +163,12 @@ html {
     .error {
       text-align: center;
       font-weight: 400;
-      margin-top: -33px;
+      margin-top: -38px;
       p {
         font-size: large;
-        background-color: #9b2226;
+        color: red;
         border-radius: 10px;
         padding: 3px;
-        color: white;
       }
     }
 
@@ -329,10 +328,9 @@ html {
       margin-top: -33px;
       p {
         font-size: large;
-        background-color: #9b2226;
+        color: red;
         border-radius: 10px;
         padding: 3px;
-        color: white;
       }
     }
 
@@ -355,20 +353,21 @@ html {
           border: 1px solid rgb(82, 81, 81);
           border-radius: 2rem;
           padding: 10px;
+          overflow: hidden;
           height: 20px;
           box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
             0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
           .link {
-            color: #333;
+            color: black;
             text-decoration: none;
 
             &:hover {
-              text-decoration: underline;
+              color: #6c757d;
             }
 
             &.selected {
-              color: #fb5607;
+              color: #e85d04;
               font-weight: bold;
             }
           }
@@ -755,6 +754,7 @@ html {
 
           .post-title {
             font-size: 14px;
+            color: #073f57;
             padding: 3px;
             margin-left: 5px;
             font-weight: bold;
@@ -765,6 +765,7 @@ html {
           .between {
             display: flex;
             align-items: center;
+            color: #073f57;
             font-size: 20px;
             cursor: pointer;
             gap: 10px;
@@ -773,6 +774,7 @@ html {
 
             i {
               font-size: 17px;
+              color: #073f57;
               margin-left: 9rem;
             }
           }

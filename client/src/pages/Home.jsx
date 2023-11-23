@@ -29,8 +29,8 @@ const Home = () => {
     const doc = new DOMParser().parseFromString(html, "text/html");
     let text = doc.body.textContent;
     let words = text.split(" ");
-    if (words.length > 120) {
-      words = words.slice(0, 120);
+    if (words.length > 110) {
+      words = words.slice(0, 110);
       text = words.join(" ") + "...";
     }
 

@@ -2,6 +2,31 @@ import React, { useState } from "react";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
+import axios from "axios";
+import { GoogleLogin } from "react-google-login";
+
+const responseGoogle = async (response) => {
+  console.log(response);
+
+  // Check if the authentication was successful
+  if (response && response.profileObj) {
+    try {
+      // Make a POST request to your backend API with the Google response
+      const apiResponse = await axios.post(
+        "http://localhost:5173/api/googleAuth/login/success",
+        {
+          googleResponse: response,
+        }
+      );
+
+      console.log("Successfully hit the success API:", apiResponse.data);
+      // You can perform additional actions if needed
+    } catch (error) {
+      console.error("Error hitting the success API:", error);
+      // Handle the error if needed
+    }
+  }
+};
 
 const Login = () => {
   const [inputs, setInputs] = useState({
@@ -37,6 +62,7 @@ const Login = () => {
   setTimeout(() => {
     setError(false);
   }, 5000);
+
   return (
     <div className="auth">
       <div className="blur" style={{ top: "-18%", right: "0" }}></div>
@@ -79,6 +105,13 @@ const Login = () => {
         <button className="button" onClick={handleSubmit}>
           {loading ? "Login.." : "Login"}
         </button>
+        <GoogleLogin
+          clientId="206155733129-h4p4fkdbhqi5eu3kan7ri91u1b7q8em0.apps.googleusercontent.com"
+          buttonText="Login with Google"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          redirectUri="http://localhost:5700/api/googleAuth/auth/google/callback"
+        />
         <div className="error">{err && <p>{err}</p>}</div>
       </form>
     </div>

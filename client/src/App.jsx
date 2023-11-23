@@ -1,4 +1,9 @@
-import { createBrowserRouter, RouterProvider, Outlet, Navigate } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  Navigate,
+} from "react-router-dom";
 import { useContext } from "react";
 
 import { Footer, Home, Login, Navbar, Register, Single, Write } from "./pages";
