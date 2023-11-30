@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
-import { RiUserFill } from "react-icons/ri";
-import { FaSignOutAlt } from "react-icons/fa";
+import { HiUser } from "react-icons/hi2";
+import { CiLogout } from "react-icons/ci";
+import Write from "../img/write.png";
 
 import { AuthContext } from "../context/authContext";
 import Logo from "../img/Logo.png";
-import Write from "../img/write.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -92,14 +92,15 @@ const Navbar = () => {
         <div className="main">
           {currentUser ? (
             <span className="user">
-              <RiUserFill />
+              <HiUser className="icon" />
+              Hello,
               {currentUser?.username}
             </span>
           ) : null}{" "}
           <div className="logout">
             {currentUser ? (
               <span onClick={handleLogout}>
-                <FaSignOutAlt className="logout_icon" />
+                <CiLogout className="logout_icon" />
                 Logout
               </span>
             ) : (
@@ -112,7 +113,7 @@ const Navbar = () => {
         {currentUser && (
           <Link className="link" to={"/write"}>
             <span className="write" onClick={handleHomeClick}>
-              <img src={Write} alt="" />
+              Create Post
             </span>
           </Link>
         )}

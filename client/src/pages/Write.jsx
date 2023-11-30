@@ -106,7 +106,6 @@ const Write = () => {
           <div className={`error ${errorMessage ? "show" : ""}`}>
             {errorMessage}
           </div>
-
           <input
             type="text"
             placeholder="Add your title"

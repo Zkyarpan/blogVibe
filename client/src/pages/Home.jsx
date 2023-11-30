@@ -1,13 +1,16 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const cat = useLocation().search;
   const { currentUser } = useContext(AuthContext);
+
+  const lastPostRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +40,18 @@ const Home = () => {
     return text;
   };
 
+  const fetchMorePosts = async () => {
+    try {
+      setLoadingMore(true);
+      const res = await axios.get(`http://localhost:5700/api/posts${cat}`);
+      setPosts((prevPosts) => [...prevPosts, ...res.data]);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingMore(false);
+    }
+  };
+
   return (
     <>
       {loading && (
@@ -48,12 +63,15 @@ const Home = () => {
       <div className="blur" style={{ top: "50rem", left: "-15rem" }}></div>
       <div className="home">
         <div className="posts">
-          {posts.map((post) => (
-            <div className="post" key={post.id}>
+          {posts.map((post, index) => (
+            <div
+              className="post"
+              key={post.id}
+              ref={index === posts.length - 1 ? lastPostRef : null}
+            >
               <div className="img">
                 <img src={`../upload/${post.img}`} alt="" />
               </div>
-
               <div className="content">
                 {currentUser ? (
                   <div>
@@ -72,6 +90,11 @@ const Home = () => {
               </div>
             </div>
           ))}
+          {loadingMore && (
+            <div className="loading-overlay">
+              <p>Loading more...</p>
+            </div>
+          )}
         </div>
       </div>
     </>
