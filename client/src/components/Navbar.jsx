@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { HiUser } from "react-icons/hi2";
 import { CiLogout } from "react-icons/ci";
-import Write from "../img/write.png";
 
 import { AuthContext } from "../context/authContext";
 import Logo from "../img/Logo.png";
@@ -40,7 +39,6 @@ const Navbar = () => {
           >
             <h6>ART</h6>
           </Link>{" "}
-          |
           <Link
             className={`link ${
               selectedCategory === "science" ? "selected" : ""
@@ -50,7 +48,6 @@ const Navbar = () => {
           >
             <h6>SCIENCE</h6>
           </Link>{" "}
-          |
           <Link
             className={`link ${
               selectedCategory === "technology" ? "selected" : ""
@@ -60,7 +57,6 @@ const Navbar = () => {
           >
             <h6>TECHNOLOGY</h6>
           </Link>{" "}
-          |
           <Link
             className={`link ${
               selectedCategory === "cinema" ? "selected" : ""
@@ -70,7 +66,6 @@ const Navbar = () => {
           >
             <h6>CINEMA</h6>
           </Link>{" "}
-          |
           <Link
             className={`link ${
               selectedCategory === "design" ? "selected" : ""
@@ -80,7 +75,6 @@ const Navbar = () => {
           >
             <h6>DESIGN</h6>
           </Link>{" "}
-          |
           <Link
             className={`link ${selectedCategory === "food" ? "selected" : ""}`}
             to={"/?cat=food"}

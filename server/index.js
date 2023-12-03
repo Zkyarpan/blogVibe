@@ -53,6 +53,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 
+
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
   connectToDb();

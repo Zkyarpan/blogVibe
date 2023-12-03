@@ -106,13 +106,16 @@ const Write = () => {
           <div className={`error ${errorMessage ? "show" : ""}`}>
             {errorMessage}
           </div>
-          <input
-            type="text"
-            placeholder="Add your title"
-            className="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+          <div>
+            <input
+              type="text"
+              placeholder="Add your title"
+              className={`title ${title ? "focused" : ""}`}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              onFocus={() => setTitle(e.target.value)}
+            />
+          </div>
           <div className="editorContainer">
             <ReactQuill
               className="editor"
@@ -121,10 +124,24 @@ const Write = () => {
               onChange={handleTextChange}
             />
           </div>
+          <span className="quote">
+            In every writer, there is a world waiting to be explored. Start
+            your journey here.
+          </span>
+          <div className="imagebtn">
+            <label className="upload_img" htmlFor="file">
+              Upload Image <i class="fas fa-camera"></i>
+            </label>
+          </div>
+          <div className="publishbtn">
+            <button type="submit" disabled={loading} onClick={handleClick}>
+              {loading ? "Publishing.." : "Publish your post"}
+            </button>
+          </div>
         </div>
         <div className="menu">
           <div className="item">
-            <h1 className="words">Category</h1>
+            <h1 className="words">Choose your Category</h1>
             <div className="cat">
               <input
                 type="radio"
@@ -192,7 +209,7 @@ const Write = () => {
               <label htmlFor="food">Food</label>
             </div>
           </div>
-          <div className="item">
+          <div className="item_2">
             <span>
               <b>Status: </b> In Progress
             </span>
@@ -213,16 +230,6 @@ const Write = () => {
               name=""
               onChange={(e) => setFile(e.target.files[0])}
             />
-            <div className="betweens">
-              <label className="upload_img" htmlFor="file">
-                Upload Image
-              </label>
-              <div className="buttons">
-                <button type="submit" disabled={loading} onClick={handleClick}>
-                  {loading ? "Publishing.." : "Publish"}
-                </button>
-              </div>
-            </div>
           </div>
         </div>
       </div>
