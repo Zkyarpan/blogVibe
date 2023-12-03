@@ -18,7 +18,7 @@ const Menu = () => {
       try {
         setLoading(true);
         const res = await axios.get(`http://localhost:5700/api/posts/`);
-        setPosts(res.data.slice(3, 6));
+        setPosts(res.data.slice(4, 7));
       } catch (error) {
         console.log(error);
       } finally {

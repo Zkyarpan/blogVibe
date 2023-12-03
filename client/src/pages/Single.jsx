@@ -103,7 +103,9 @@ const Single = () => {
               <button className="go_back_btn">Go back</button>
             </Link>
           </div>
-          <Menu />
+          <div className="menusection">
+            <Menu />
+          </div>
         </div>
       )}
     </>
