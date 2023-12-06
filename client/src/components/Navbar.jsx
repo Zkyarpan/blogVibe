@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
-import { HiUser } from "react-icons/hi2";
+import defaultuser from "/defaultuser.png";
 import { CiLogout } from "react-icons/ci";
 
 import { AuthContext } from "../context/authContext";
@@ -86,11 +86,19 @@ const Navbar = () => {
         <div className="main">
           {currentUser ? (
             <span className="user">
-              <HiUser className="icon" />
+              {currentUser.img ? (
+                <img
+                  className="navbarimage"
+                  src={`../upload/${currentUser.img}`}
+                  alt=""
+                />
+              ) : (
+                <img className="navbarimage" src={defaultuser} alt="" />
+              )}
               Hello,
               {currentUser?.username}
             </span>
-          ) : null}{" "}
+          ) : null}
           <div className="logout">
             {currentUser ? (
               <span onClick={handleLogout}>
