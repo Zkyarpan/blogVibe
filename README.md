@@ -87,4 +87,3 @@ Blog Vibe is a platform where users can publish blog posts based on categories, 
 
 
 Happy blogging with Blog Vibe!
-```
