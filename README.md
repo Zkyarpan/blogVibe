@@ -65,12 +65,6 @@ Blog Vibe is a platform where users can publish blog posts based on categories, 
    module.exports = connection;
    ```
 
-3. Run migrations to set up tables (if any migration script is available):
-   ```bash
-   # Assuming you have a migration setup
-   npm run migrate
-   ```
-
 ### Running the Application
 
 1. Start the backend server:
